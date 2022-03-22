@@ -21,11 +21,14 @@ public class SecurityServiceImpl implements SecurityService{
         UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken
                 (userDetails, password, userDetails.getAuthorities());
+
         authenticationManager.authenticate(token);
         boolean result = token.isAuthenticated();
         if(result){
+            System.out.println("ALLOWED");
             SecurityContextHolder.getContext().setAuthentication(token);
         }
+
         return result;
     }
 }
